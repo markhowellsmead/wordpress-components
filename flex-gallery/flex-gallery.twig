@@ -1,0 +1,48 @@
+{% if component.images|length %}
+
+	{% extends "layouts/component.twig" %}
+
+	{% block content %}
+
+		<section class="row expanded collapse align-center">
+			{% if component.title|length or component.lead|length %}
+				<div class="column small-10 large-6 text-center">
+					<div class="ct-gallery-intro">
+						{% if component.title|length %}
+							<h2 class="component-title">{{ component.title }}</h2>
+						{% endif %}
+						{% if component.lead|length %}
+							<p class="component-lead lead">{{ component.lead }}</p>
+						{% endif %}
+					</div>
+				</div>
+			{% endif %}
+
+			{% if images|length > 10 %}
+				{% set target_height = 300 %}
+				{% set image_size = 'medium' %}
+			{% else %}
+				{% set target_height = 400 %}
+				{% set image_size = 'large' %}
+			{% endif %}
+
+			<div class="column small-12">
+				{% set unique = fn('uniqid') %}
+				<!-- Grid layout origin: https://github.com/xieranmaya/blog/issues/6 #wowza -->
+				<div class="post-gallery grid500">
+					{% for image in component.images %}
+						<figure class="grid-item" style="flex-grow:{{ image.sizes[image_size ~ '-width'] * 100 / image.sizes[image_size ~ '-height'] }};flex-basis:{{ image.sizes[image_size ~ '-width'] * target_height / image.sizes[image_size ~ '-height'] }}px;">
+							<a class="flood" href="{{ TimberImage(image).src('fancybox') }}" data-fancybox="gallery-{{ unique }}" data-caption="{{ image.caption != '' ? image.caption : image.title }}">
+								<p class="hover-text">{{ _x('Bild öffnen', 'gallery hover text', 'wptheme-mountain') }}</p>
+								<i class="uncollapse" style="padding-bottom:{{ image.sizes[image_size ~ '-height'] / image.sizes[image_size ~ '-width'] * 100 }}%"></i>
+								<img class="image" src="{{ image.sizes[image_size] }}" alt="{{ image.alt }}">
+							</a>
+						</figure>
+					{% endfor %}
+				</div>
+			</div>			
+		</section>
+
+	{% endblock %}
+
+{% endif %}
