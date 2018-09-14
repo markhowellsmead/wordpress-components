@@ -1,0 +1,130 @@
+.ct-component.ct-component-hero {
+	position: relative;
+	height: 100%;
+	height: 100vh;
+	overflow: hidden;
+	color: $white;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+
+	.button {
+		margin: 0;
+	}
+
+	.hero-info {
+		position: absolute;
+		z-index: 2;
+		width: 100%;
+		color: $white;
+		bottom: rem-calc(24px);
+		@include breakpoint(medium){
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			bottom: unset;
+			bottom: inherit;
+		}
+
+		@include breakpoint(medium) {
+			top: 60%;
+		}
+
+		.hero-info-element  {
+			margin: $global-margin 0;
+			@include breakpoint(large){
+				margin: $global-margin*2 0;
+			}
+		}
+
+		.hero-logo img {
+			max-width: rem-calc(210px)	
+		}
+
+		.hero-description, .hero-title {
+			color: inherit;
+		}
+
+		.hero-buttons {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 50%;
+			@include breakpoint(mediumlarge){
+				max-width: 100%;
+			}
+			.column {
+				margin: $global-margin/2 0;
+				@include breakpoint(mediumlarge){
+					margin: 0;
+				}
+			}
+			.button {
+				display: block;
+			}
+		}
+	}
+
+	.html5video-holder {
+		@include flood;
+	}
+
+	[data-scrollto] {
+		position: absolute;
+		left: 50%;
+		bottom: rem-calc(24px);
+		transform: translateX(-50%);
+		z-index: 2;
+		color: $white;
+		@include breakpoint(medium) {
+			font-size: 1rem;
+			bottom: rem-calc(105px);
+		}
+	}
+
+	&.proportion-31 {
+		height: 30vh;
+	}
+
+	&.proportion-41 {
+		height: 40vh;
+	}
+	.ct-component-overlay-dark::after,
+	.ct-component-overlay-light::after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		display: block;
+		content: '';
+	}
+
+	.ct-component-overlay-dark::after {
+		background: linear-gradient(rgba($black, .8), rgba($primary-color, .53), rgba($black, .9));
+		opacity: 0.9;
+	}
+
+	.ct-component-overlay-light::after {
+		background: linear-gradient(rgba($white, .69), rgba($primary-color, .85));
+		opacity: 0.9;
+	}
+
+	.fa-chevron-down {
+		cursor: pointer;
+	}
+
+	.hero-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.admin-bar & {
+		height: calc(100% - 46px);
+		height: calc(100vh - 46px);
+		@include breakpoint(783px){
+			height: calc(100% - 32px);
+			height: calc(100vh - 32px);
+		}
+	}
+}
