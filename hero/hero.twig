@@ -1,0 +1,72 @@
+{% extends "layouts/component.twig" %}
+
+{% block content %}
+
+	<section class="row expanded collapse align-center">
+
+		<div class="ct-component ct-component-{{ component.acf_fc_layout }} ct-component-{{ component.overlay }} {{component.proportion}}" data-ct-fullheight>
+			{% if component.image_or_video == 'with--image' and component.image is not empty %}
+				<img class="hero-image" src="{{component.image.url|resize(320)}}" srcset="{{component.image.url|resize(320)}} 320w, {{component.image.url|resize(768)}} 768w, {{component.image.url|resize(1536)}} 1536w, {{component.image.url|resize(2560)}} 2560w" alt="{{component.image.alt ? component.image.alt : component.image.title}}" data-ct-fullheight/>
+			{% endif %}
+
+			{% if component.image_or_video == 'with--video' and component.video is not empty %}
+				{% include 'partials/html5video.twig' with {video: component.video} %}
+			{% endif %}
+			{% if component.title is not empty or component.description is not empty or component.hero_show_logo or component.hero_buttons|length %}
+				<div class="hero-info text-center">
+					{% if component.hero_show_logo %}
+						<div class="hero-info-element hero-logo">
+							{% if component.logo %}
+								{% set logo = TimberImage(component.logo) %}
+								<figure class="custom-logo">
+									<a class="site-link" href="{{ site.link }}"><img alt="{{ logo.alt }}" src="{{ logo.src }}"></a>
+								</figure>
+							{% endif %}
+						</div>
+					{% endif %}
+
+					<div class="hero-info-element hero-buttons">
+
+						{% if component.hero_buttons|length %}
+							<div class="row align-center">
+								{% for component in component.hero_buttons %}
+									{% if component.hero_button.url and component.hero_button.title %}
+										<div class="column small-12 mediumlarge-2">
+											<a class="white hollow button" {{ component.hero_button.target is not empty ? 'target="_blank"' }} href="{{ component.hero_button.url }}">{{ component.hero_button.title }}</a>
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						{% endif %}
+					</div>
+                
+                    <div class="hero-info-element hero-text">
+                        <div class="row align-center">
+                            <div class="column small-12 large-6">
+                                {% if component.title is not empty %}
+                                    <h2 class="hero-title">{{component.title}}</h2>
+                                {% endif %}
+                                {% if component.description is not empty  %}
+                                    <p class="hero-description">{{component.description}}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            {% endif %}
+
+            {% if component.showdownarrow %}
+                {% set anchorID = random(500) %}
+                    <i class="fas fa-arrow-down" aria-hidden="true" data-scrollto><a href="#{{ anchorId }}"></a></i>
+            {% endif %}
+
+        </div>
+
+        {% if component.showdownarrow %}
+            <span id="after-{{ anchorID }}"></span>
+        {% endif %}
+
+    </section>
+
+{% endblock %}
