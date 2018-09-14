@@ -29,7 +29,7 @@
 			<div class="column small-12">
 				{% set unique = fn('uniqid') %}
 				<!-- Grid layout origin: https://github.com/xieranmaya/blog/issues/6 #wowza -->
-				<div class="post-gallery grid500">
+				<div class="post-gallery flex-gallery-grid">
 					{% for image in component.images %}
 						<figure class="grid-item" style="flex-grow:{{ image.sizes[image_size ~ '-width'] * 100 / image.sizes[image_size ~ '-height'] }};flex-basis:{{ image.sizes[image_size ~ '-width'] * target_height / image.sizes[image_size ~ '-height'] }}px;">
 							<a class="flood" href="{{ TimberImage(image).src('fancybox') }}" data-fancybox="gallery-{{ unique }}" data-caption="{{ image.caption != '' ? image.caption : image.title }}">
